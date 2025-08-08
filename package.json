@@ -8,5 +8,9 @@
   "keywords": [],
   "author": "Luis Fernando",
   "license": "ISC",
-  "description": "Criando Api Rest com Node.js"
+  "description": "Criando Api Rest com Node.js",
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "typescript": "^5.5.4"
+  }
 }
