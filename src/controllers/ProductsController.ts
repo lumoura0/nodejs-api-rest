@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { AppError } from '../utils/AppError'
+import { z } from 'zod'
 
 class ProductController {
     /**
@@ -18,18 +19,22 @@ class ProductController {
     }
 
     create(request: Request, response: Response) {
-        const { name, price } = request.body
+        const bodySchema = z.object({
+            name: z.string().min(5, 'Name must be at least 5 characters long'),
+            price: z.number().positive('Price must be a positive number')
+        })
+        const { name, price } = bodySchema.parse(request.body)
 
-        if (!name) {
-            throw new AppError('Name is required', 400)
-        }
-        if (name.length < 5) {
-            throw new AppError('Name must be at least 5 characters long', 400)
-        }
+        // if (!name) {
+        //     throw new AppError('Name is required', 400)
+        // }
+        // if (name.length < 5) {
+        //     throw new AppError('Name must be at least 5 characters long', 400)
+        // }
 
-        if (!price) {
-            throw new AppError('Price is required', 400)
-        }
+        // if (!price) {
+        //     throw new AppError('Price is required', 400)
+        // }
 
         // throw new Error('Erro na criação do produto')
         // throw new AppError('Erro na criação do produto')
